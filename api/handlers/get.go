@@ -75,17 +75,3 @@ func (get *Get) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(articles)
 }
-
-// // unmarshal the response body into a struct
-// var articles Articles
-// err = json.Unmarshal(body, &articles)
-// if err != nil {
-// 	fmt.Println(err)
-// }
-
-// // print the response body
-// fmt.Println(articles)
-
-// // send articles as json to the client
-// w.Header().Set("Content-Type", "application/json")
-// json.NewEncoder(w).Encode(articles)

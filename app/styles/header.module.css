@@ -1,0 +1,12 @@
+.container {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+}
+
+.link {
+  margin-right: 0.5rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

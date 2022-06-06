@@ -1,26 +1,49 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
+import Header from '../component/header'
+import Paper from '../component/paper'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({articles}: any) => {
   return (
     <div>
-      <h1>This is Machine Learning page</h1>
-      <Link href="/deeplearning">
-        <a>Deep learning</a>
-      </Link>
+      <Header />
+      <h2 style={{marginBottom: `0.5rem`, padding: `1rem`}}>News about Machine Learning</h2>
+      {
+        articles.map((article: any, index: any) => (
+          <>
+            <Paper
+              key={index}
+              title={article.title}
+              description={article.description}
+              published={article.published}
+              url={article.url}
+              tags={article.tags}
+            />
+          </>
+        ))
+      }
     </div>
   )
 }
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:8080/get?tag=machinelearning')
-
+  const res = await fetch(`http://api:8080/get?tag=machinelearning`)
   const data = await res.json()
 
-  console.log(data)
+  var articles: any = []
+  data.forEach((article: any) => {
+    if (article.type_of === 'article') {
+      articles.push({
+        title: article.title,
+        description: article.description,
+        published: article.published_timestamp,
+        url: article.url,
+        tags: article.tags,
+      })
+    }
+  })
 
   return {
-    props: {},
+    props: {articles},
   }
 }
 
